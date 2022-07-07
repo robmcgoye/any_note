@@ -1,0 +1,45 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Name </th>
+      <th scope="col">Email </th>
+      <th scope="col" class="text-center">Manager</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.each do |user| %>
+      <tr>
+        <td class="<%= get_user_formatting(user) %>">
+          <%# "#{user.first_name.upcase_first} #{user.last_name.upcase_first}" %>
+          <%= user.full_name %>
+        </td>
+        <td class="<%= get_user_formatting(user) %>">
+          <%= user.email %>
+        </td>
+        <td class="text-center">
+          <i class="<%= user.manager? || user.owner? ? "bi bi-toggle-on" : "bi bi-toggle-off" %>"></i>
+        </td>
+        <td>
+        <div class="btn-group">
+          <% if current_user.owner? || (!current_user.owner? && !user.owner?) %>
+            <%= link_to edit_user_path(user), class: "btn btn-sm btn-outline-dark" do %>
+              <i class="bi bi-pencil"></i>
+            <% end %>
+        <%= link_to account_users_path(@account), class: "btn btn-sm btn-outline-dark" do %> 
+          <i class="bi bi-arrow-counterclockwise"></i>
+        <% end %>
+
+          <% end %>
+          <% if !user.owner? %>
+            <%= button_to user_path(user), class: "btn btn-sm btn-outline-dark", form: {data: {turbo_confirm: 'Are you sure??'}}, method: :delete do %>
+              <i class="bi bi-trash"></i>
+            <% end %>
+          <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>

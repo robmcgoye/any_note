@@ -9,7 +9,9 @@ Bundler.require(*Rails.groups)
 CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
 CONFIG.merge! CONFIG.fetch(Rails.env, {})
 CONFIG.symbolize_keys!
-
+#
+# ACCESS_ROLES = {site_admin: 8, owner: 4, manager: 2, enabled: 1}
+#
 module AnyNote
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
@@ -22,5 +24,11 @@ module AnyNote
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # Remove Rails field_with_errors wrapper *******
+    ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag.html_safe
+    end
+    #***********************************************
   end
 end

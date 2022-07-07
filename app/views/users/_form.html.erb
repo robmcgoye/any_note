@@ -1,0 +1,51 @@
+ <%= form_for user, url: path_for_user do |f| %>
+  <%= render 'shared/error_messages', resource: @user %>
+  <% if !user.owner? %>
+    <div class="row ps-3">
+      <div class="col-auto form-check form-switch">
+        <%= f.check_box :manager, class: "form-check-input", id: "flexSwitchCheckmanager" %>
+        <%= f.label :manager,  class: "form-check-label", for: "flexSwitchCheckmanager" %>        
+      </div>
+      <div class="col form-check form-switch">
+        <%= f.check_box :enabled, class: "form-check-input", id: "flexSwitchCheckenabled" %>
+        <%= f.label :enabled,  class: "form-check-label", for: "flexSwitchCheckenabled" %>        
+      </div>
+    </div>
+  <% else %>
+    <div class="form-check form-switch">
+      <%= f.check_box :owner, class: "form-check-input", id: "flexSwitchCheckowner", :disabled => true %>
+      <%= f.label :owner,  class: "form-check-label", for: "flexSwitchCheckowner" %>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true, placeholder: "Enter your first name", class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocus: true, placeholder: "Enter your last name", class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, placeholder: "Enter your email address", autocomplete: "email", class: "form-control"%>
+  </div>
+  <% if user.new_record? %>
+  <div class="field form-group pt-1">
+    <%= f.label :password %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+  </div>
+
+  <div class="field form-group pt-1">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+  <% end %>
+  <div class="actions pt-3">
+    <%= f.button class: "btn btn-sm btn-outline-dark" do %>
+      <i class="bi bi-save pe-1"></i><%= "#{user.new_record?  ? "Create" : "Update"}" %>
+    <% end %>    
+  </div>
+ <% end %>

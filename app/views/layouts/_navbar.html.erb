@@ -1,36 +1,66 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary shadow">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <%= link_to 'Any Note', root_path, class: "navbar-brand" %>
+    <% if user_signed_in? %>
+      <span class="navbar-text mb-0"><%= current_user.email %></span>
+    <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 justify-content-end">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <%= link_to 'About', about_path, class: "#{request.path == about_path  ? "nav-link active" : "nav-link"}" %>
         </li>
+        <% if user_signed_in? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Cabinents
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">New Cabinet</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-gear pe-1"></i>Settings
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <% if manager_user? %>
+                <li>
+                  <%= link_to account_path(current_account), class: "dropdown-item" do %>
+                    <i class="bi bi-shield-lock pe-1"></i>Account
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to account_users_path(current_account), class: "dropdown-item" do %>
+                    <i class="bi bi-people pe-1"></i>Users
+                  <% end %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to "Edit", edit_user_registration_path(current_user), class: "dropdown-item" %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <% if user_signed_in? %>
+            <%= button_to 'Logout', destroy_user_session_path, class: 'btn btn-sm btn-outline-light', method: :delete %>
+          <% else %>
+            <%= link_to "Login", user_session_path, class: "btn btn-sm btn-outline-light" %>
+            <%= link_to "Sign Up", new_account_path, class: "btn btn-sm btn-outline-light" %>
+          <% end %>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>

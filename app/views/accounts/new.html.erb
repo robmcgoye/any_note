@@ -1,0 +1,62 @@
+<div class="container py-3">
+  <div class="card mb-3 shadow-lg rounded border">
+    <div class="card-body text-dark">
+      <h3 class="card-title"> Sign Up </h3>
+      <p class="card-text">
+        <%= form_for @account, url: accounts_path do |f| %>
+          <%= render 'shared/error_messages', resource: @account %>
+          <div class="field form-group">
+            <%= f.label "Account Name" %><br />
+            <%= f.text_field :name, autofocus: true, placeholder: "Account name", class: "form-control" %>
+          </div>
+          <%= f.fields_for :users do |u| %>
+
+            <div class="form-check form-switch pt-2">
+              <%= u.check_box :owner, class: "form-check-input", id: "flexSwitchCheckowner", :disabled => true %>
+              <%= u.label :owner,  class: "form-check-label", for: "flexSwitchCheckowner" %>        
+            </div>
+            
+            <div class="field form-group">
+              <%= u.label :first_name %><br />
+              <%= u.text_field :first_name, autofocus: true, placeholder: "Enter your first name", class: "form-control" %>
+            </div>
+
+            <div class="field form-group">
+              <%= u.label :last_name %><br />
+              <%= u.text_field :last_name, autofocus: true, placeholder: "Enter your last name", class: "form-control" %>
+            </div>
+
+            <div class="field form-group">
+              <%= u.label :email %><br />
+              <%= u.email_field :email, autofocus: true, placeholder: "Enter your email address", autocomplete: "email", class: "form-control"%>
+            </div>
+
+            <div class="field form-group pt-1">
+              <%= u.label :password %>
+              <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %><br />
+              <%= u.password_field :password, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="field form-group pt-1">
+              <%= u.label :password_confirmation %><br />
+              <%= u.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+          <% end %>
+
+          <div class="actions pt-2">
+            <%= f.submit "Sign up", class: "btn btn-sm btn-outline-dark" %>
+          </div>
+        <% end %>
+
+       <div class="btn-group pt-2">
+       <%= link_to "Log in", new_user_session_path, class: "btn btn-sm btn-outline-dark" %>
+        <%= link_to "Didn't receive confirmation instructions?", new_user_confirmation_path, class: "btn btn-sm btn-outline-dark" %>
+       </div>
+
+      </p>
+    </div>
+  </div>
+</div>

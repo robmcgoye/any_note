@@ -1,0 +1,8 @@
+menubar: true
+toolbar:
+  - undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | image | help
+plugins:
+  - advlist autolink lists link image charmap anchor
+  - insertdatetime media table code help wordcount
+images_upload_url: "/tinymce_assets"
+relative_urls : false

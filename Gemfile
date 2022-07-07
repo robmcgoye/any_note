@@ -52,7 +52,11 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 gem 'psych', '< 4'
 gem 'strscan', '=3.0.1' 
+# ----------------------
 gem 'devise', '~> 4.8', '>= 4.8.1'
+gem 'tinymce-rails', '~> 6.0', '>= 6.0.3.1'
+gem 'carrierwave', '~> 2.2', '>= 2.2.2'
+gem 'mini_magick', '~> 4.11'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

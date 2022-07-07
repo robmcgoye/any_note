@@ -1,0 +1,29 @@
+<% provide(:title, "Users") %>
+<div class="container py-3">
+  <div class="card mb-3 shadow-lg rounded border">
+    <div class="card-body text-dark">
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Registered Account Holder</h5>
+    <p class="card-text">
+      <b>Account Name:</b> <%= @account.name %><br>
+      <b>Registered Owner:</b> <%= @owner.full_name %><br>
+      <b>Registered Email:</b> <%= @owner.email %>
+    </p>
+        <div class="btn-group">
+          <% if current_user.owner? %>
+            <%= link_to edit_account_path(@account), class: "btn btn-sm btn-outline-dark" do %>
+              <i class="bi bi-pencil pe-1"></i>Edit
+            <% end %>
+            <%= link_to edit_user_path(@account.registered_owner), class: "btn btn-sm btn-outline-dark" do %>
+              <i class="bi bi-person-badge pe-1"></i>Edit Owner
+            <% end %>
+          <% end %>
+          </div>
+
+  </div>
+</div>
+    </div>
+  </div>
+</div>
