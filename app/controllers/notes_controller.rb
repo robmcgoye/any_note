@@ -1,5 +1,12 @@
 class NotesController < ApplicationController
-  before_action :set_note, only: %i[ show edit update destroy ]
+  before_action only: [:new, :create] do
+    set_folder
+    require_allowed_user(@account)
+  end
+  before_action only: [:show, :edit, :update, :destroy] do
+    set_note
+    require_allowed_user(@account)
+  end
 
   # GET /notes or /notes.json
   def index
@@ -12,7 +19,7 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    @note = Note.new
+    @note = @folder.notes.new
   end
 
   # GET /notes/1/edit
@@ -59,8 +66,20 @@ class NotesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_folder
+      @folder = Folder.find(params[:folder_id])
+      set_parents
+    end
+
+    def set_parents
+      @cabinet = @folder.cabinet
+      @account = @cabinet.account
+    end
+
     def set_note
       @note = Note.find(params[:id])
+      @folder = @note.folder
+      set_parents
     end
 
     # Only allow a list of trusted parameters through.

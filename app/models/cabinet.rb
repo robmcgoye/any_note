@@ -1,8 +1,10 @@
 class Cabinet < ApplicationRecord
   
   belongs_to :account
-  
   has_many :folders, dependent: :destroy
-  validates :name, presence: true, length: { minimum: 1, maximum: 125 }
+  
+  accepts_nested_attributes_for :folders
+
+  validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 125 }
 
 end

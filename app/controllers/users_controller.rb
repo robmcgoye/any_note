@@ -12,7 +12,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   def index
   end
 
@@ -68,9 +67,9 @@ class UsersController < ApplicationController
   def set_account
     @account = Account.find(params[:account_id])
   end
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :manager, :enabled)
-    end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :manager, :enabled)
+  end
 
 end

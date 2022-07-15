@@ -28,6 +28,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # DELETE /resource
   def destroy
     # super
+    flash[:notice] = "devise registation controller-- check to see if user was deleted"
     redirect_to root_path
   end
 

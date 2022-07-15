@@ -2,6 +2,11 @@
   <div class="container-fluid">
     <%= link_to 'Any Note', root_path, class: "navbar-brand" %>
     <% if user_signed_in? %>
+      <% if !allowed_user? %>
+        <em class="navbar-text pe-1"> User Disabled ***</em>
+      <% else %>
+        <em class="navbar-text pe-3"><%= current_account.name %>-></em>
+      <% end %>
       <span class="navbar-text mb-0"><%= current_user.email %></span>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,16 +17,25 @@
         <li class="nav-item">
           <%= link_to 'About', about_path, class: "#{request.path == about_path  ? "nav-link active" : "nav-link"}" %>
         </li>
-        <% if user_signed_in? %>
+        <% if allowed_user? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Cabinents
+              <i class="bi bi-journals pe-1"></i>Cabinents
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">New Cabinet</a></li>
+              <li>
+                <%= link_to new_account_cabinet_path(current_account), class: "dropdown-item" do %>
+                  <i class="bi bi-journal-plus pe-1"></i>New Cabinet
+                <% end %>
+              </li>
+              <% if current_account.cabinets.present? %>
+                <li><hr class="dropdown-divider"></li>
+                <% current_account.cabinets.each do |cabinet| %>
+                  <li>
+                    <%= link_to cabinet.name, back_to_cabinet_path(cabinet.id), class: "dropdown-item" %>
+                  </li>
+                <% end %>
+              <% end %>
             </ul>
           </li>
 
@@ -29,13 +43,13 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-gear pe-1"></i>Settings
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">              
+              <li>
+                <%= link_to account_path(current_account), class: "dropdown-item" do %>
+                  <i class="bi bi-shield-lock pe-1"></i>Account
+                <% end %>
+              </li>
               <% if manager_user? %>
-                <li>
-                  <%= link_to account_path(current_account), class: "dropdown-item" do %>
-                    <i class="bi bi-shield-lock pe-1"></i>Account
-                  <% end %>
-                </li>
                 <li>
                   <%= link_to account_users_path(current_account), class: "dropdown-item" do %>
                     <i class="bi bi-people pe-1"></i>Users
@@ -43,7 +57,9 @@
                 </li>
               <% else %>
                 <li>
-                  <%= link_to "Edit", edit_user_registration_path(current_user), class: "dropdown-item" %>
+                  <%= link_to edit_user_registration_path(current_user), class: "dropdown-item" do %>
+                    <i class="bi bi-person pe-1"></i>Edit
+                  <% end %>
                 </li>
               <% end %>
             </ul>

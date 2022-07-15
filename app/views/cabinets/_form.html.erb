@@ -1,22 +1,16 @@
-<%= form_with(model: cabinet) do |form| %>
-  <% if cabinet.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(cabinet.errors.count, "error") %> prohibited this cabinent from being saved:</h2>
-
-      <ul>
-        <% cabinet.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_for cabinet, url: post_url do |f| %>
+  <%= render 'shared/error_messages', resource: cabinet %>
+  <div class="field form-group">
+    <%= f.label "Name" %><br />
+    <%= f.text_field :name, autofocus: true, placeholder: "name", class: "form-control" %>
+  </div>
+  <%= f.fields_for :folders do |cf| %>
+    <div class="field form-group">
+      <%= cf.label :title %><br />
+      <%= cf.text_field :title, autofocus: true, placeholder: "Enter your folder name", class: "form-control" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="actions pt-2">
+    <%= f.submit class: "btn btn-sm btn-outline-dark" %>
   </div>
 <% end %>

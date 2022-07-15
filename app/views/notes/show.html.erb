@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<% provide(:title, "Show Note") %>
+<div class="row">
+  <div class="col col-md-auto">
+    <%= render "sidebar" %>
+  </div>
+  <div class="col">
+    <div class="container py-3">
+      <div class="card mb-3 shadow-lg rounded border">
+        <div class="card-body text-dark">
+          <h3 class="card-title"><%= @note.title %></h3>
+          <p class="card-text">
+            <%= @note.content %>
+          </p>
+          <div class="btn-group">
 
-<%= render @note %>
+          </div>
 
-<div>
-  <%= link_to "Edit this note", edit_note_path(@note) %> |
-  <%= link_to "Back to notes", notes_path %>
-
-  <%= button_to "Destroy this note", @note, method: :delete %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

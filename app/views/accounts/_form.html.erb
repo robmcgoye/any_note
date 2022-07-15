@@ -1,11 +1,11 @@
-        <%= form_for account do |f| %>
-          <%= render 'shared/error_messages', resource: account %>
-          <div class="field form-group">
-            <%= f.label "Account Name" %><br />
-            <%= f.text_field :name, autofocus: true, placeholder: "Account name", class: "form-control" %>
-          </div>
+<%= form_for account do |f| %>
+  <%= render 'shared/error_messages', resource: account %>
+  <div class="field form-group">
+    <%= f.label "Account Name" %><br />
+    <%= f.text_field :name, autofocus: true, placeholder: "Account name", class: "form-control" %>
+  </div>
 
-          <div class="actions pt-2">
-            <%= f.submit "Update", class: "btn btn-sm btn-outline-dark" %>
-          </div>
-        <% end %>
+  <div class="actions pt-2">
+    <%= f.submit "Update", class: "btn btn-sm btn-outline-dark" %>
+  </div>
+<% end %>
