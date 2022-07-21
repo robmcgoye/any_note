@@ -7,12 +7,11 @@
       <% end %>   
     </span>
     <%= link_to new_cabinet_folder_path(@cabinet), 
-        class: "list-group-item list-group-item-action grp-item"  do %>
+        class: "list-group-item list-group-item-action grp-item" do %>
       <i class="bi bi-folder-plus pe-1"></i> Add a Folder
     <% end %>
     <%= link_to new_cabinet_note_path(@cabinet), 
-        class: "list-group-item list-group-item-action grp-item", 
-        :data => {:turbo => "false"}  do %>
+        class: "list-group-item list-group-item-action grp-item", :data => {:turbo => "false"} do %>
       <i class="bi bi-file-plus pe-1"></i> Add a Note
     <% end %>
     <span class="list-group-item"> 

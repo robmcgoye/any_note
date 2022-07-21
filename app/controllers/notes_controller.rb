@@ -63,7 +63,9 @@ class NotesController < ApplicationController
       @folder = @note.folder
       @cabinet = @folder.cabinet
       @account = @cabinet.account
-    end
+      cookie_name = "#{@account.id}_cabinet_#{@cabinet.id}"
+      cookies[cookie_name] = @note.id
+  end
 
     def note_params
       params.require(:note).permit(:title, :content, :folder_id)

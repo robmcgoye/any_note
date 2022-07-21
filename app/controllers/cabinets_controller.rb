@@ -20,7 +20,8 @@ class CabinetsController < ApplicationController
     @cabinet = @account.cabinets.build(cabinet_params)
     respond_to do |format|
       if @cabinet.save
-        format.html { redirect_to new_folder_note_path(@cabinet.folders.take), notice: "Cabinet was successfully created." }
+        # format.turbo_stream { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Cabinet was successfully created!!" }
+        format.html { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Cabinet was successfully created." }
         # format.json { render :show, status: :created, location: @cabinet }
       else
         format.html { render :new, status: :unprocessable_entity }
