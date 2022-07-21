@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   before_action only: [:new, :create] do
-    set_folder
+    set_cabinet
     require_allowed_user(@account)
   end
   before_action only: [:show, :edit, :update, :destroy] do
@@ -8,10 +8,10 @@ class NotesController < ApplicationController
     require_allowed_user(@account)
   end
 
-  # GET /notes or /notes.json
-  def index
-    @notes = Note.all
-  end
+  # # GET /notes or /notes.json
+  # def index
+  #   @notes = Note.all
+  # end
 
   # GET /notes/1 or /notes/1.json
   def show
@@ -19,7 +19,8 @@ class NotesController < ApplicationController
 
   # GET /notes/new
   def new
-    @note = @folder.notes.new
+    @note = Note.new
+    # binding.break
   end
 
   # GET /notes/1/edit
@@ -28,12 +29,14 @@ class NotesController < ApplicationController
 
   # POST /notes or /notes.json
   def create
+    # binding.break
     @note = Note.new(note_params)
 
+   
     respond_to do |format|
       if @note.save
         format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
-        format.json { render :show, status: :created, location: @note }
+        # format.json { render :show, status: :created, location: @note }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
@@ -46,7 +49,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       if @note.update(note_params)
         format.html { redirect_to note_url(@note), notice: "Note was successfully updated." }
-        format.json { render :show, status: :ok, location: @note }
+        # format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @note.errors, status: :unprocessable_entity }
@@ -66,9 +69,9 @@ class NotesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_folder
-      @folder = Folder.find(params[:folder_id])
-      set_parents
+    def set_cabinet
+      @cabinet = Cabinet.find(params[:cabinet_id])
+      @account = @cabinet.account
     end
 
     def set_parents
@@ -82,8 +85,8 @@ class NotesController < ApplicationController
       set_parents
     end
 
-    # Only allow a list of trusted parameters through.
     def note_params
-      params.fetch(:note, {})
+      params.require(:note).permit(:title, :content, :folder_id)
     end
+  
 end

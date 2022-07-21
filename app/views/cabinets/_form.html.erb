@@ -4,11 +4,13 @@
     <%= f.label "Name" %><br />
     <%= f.text_field :name, autofocus: true, placeholder: "name", class: "form-control" %>
   </div>
-  <%= f.fields_for :folders do |cf| %>
-    <div class="field form-group">
-      <%= cf.label :title %><br />
-      <%= cf.text_field :title, autofocus: true, placeholder: "Enter your folder name", class: "form-control" %>
-    </div>
+  <% if new_cabinet %>
+    <%= f.fields_for :folders do |cf| %>
+      <div class="field form-group">
+        <%= cf.label :title %><br />
+        <%= cf.text_field :title, autofocus: true, placeholder: "Enter your folder name", class: "form-control" %>
+      </div>
+    <% end %>
   <% end %>
   <div class="actions pt-2">
     <%= f.submit class: "btn btn-sm btn-outline-dark" %>

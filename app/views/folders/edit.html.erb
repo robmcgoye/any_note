@@ -1,1 +1,20 @@
-edit folder
+<% provide(:title, "Edit Folder") %>
+<div class="container py-3">
+  <div class="card mb-3 shadow-lg rounded border">
+    <div class="card-body text-dark">
+      <h3 class="card-title">Edit Folder in <i><%= @cabinet.name %></i></h3>
+      <p class="card-text">
+        <%= render "form", folder: @folder, post_url: folder_path(@folder)  %>
+      </p>
+      <div class="btn-group p-2">
+        <%= link_to back_to_cabinet_path(@cabinet.id), class: "btn btn-sm btn-outline-dark" do %> 
+          <i class="bi bi-box-arrow-in-right pe-1"></i>Back
+        <% end %>
+        <%= button_to folder_path(@folder), class: "btn btn-sm btn-outline-dark", form: {data: {turbo_confirm: 'Are you sure?'}}, method: :delete do %>
+          <i class="bi bi-trash"></i>Delete
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,42 +1,53 @@
 <div class="flex-shrink-0 p-3 bg-light">
-  <span class="align-items-center pb-3 mb-3 fs-4">Cabinet: 
-    <b><%= @cabinet.name %></b>
-  </span><br>
-  <span class="fs-6">
+  <div class="list-group">
+    <span class="list-group-item fs-4"> 
+      <i class="bi bi-journal-richtext pe-2"></i><b><%= @cabinet.name %></b>
+      <%= link_to edit_cabinet_path(@cabinet), class: "btn btn-sm link-dark"  do %>
+        <i class="bi bi-pencil"></i>
+      <% end %>   
+    </span>
     <%= link_to new_cabinet_folder_path(@cabinet), 
-            class: "text-decoration-none #{request.path == new_cabinet_folder_path(@cabinet)  ? "link-dark rounded link-active" : "link-dark rounded"}"  do %>
+        class: "list-group-item list-group-item-action grp-item"  do %>
       <i class="bi bi-folder-plus pe-1"></i> Add a Folder
     <% end %>
-    </span>
-  <% if @cabinet.folders.present? %>
-    <ul class="list-unstyled ps-0">
-      <% @cabinet.folders.each do |folder| %>
-        <li class="mb-1">
-          <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="<%= "#folder-#{folder.id}-collapse" %>" aria-expanded="true">
-            <%= folder.title %>
-          </button>
-      <%= link_to edit_folder_path(folder), class: "btn btn-sm btn-light link-dark"  do %>
-        <i class="bi bi-pencil"></i>
-      <% end %>            
-          <% if folder.notes.present? %>
-            <div class="btn-toggle-nav collapse show" id="<%= "folder-#{folder.id}-collapse" %>">
-              <ul class="list-unstyled fw-normal pb-1 small">
-                <li>
-    <%= link_to new_folder_note_path(folder), 
-            class: "text-decoration-none #{request.path == new_folder_note_path(folder)  ? "link-dark rounded link-active" : "link-dark rounded"}"  do %>
+    <%= link_to new_cabinet_note_path(@cabinet), 
+        class: "list-group-item list-group-item-action grp-item", 
+        :data => {:turbo => "false"}  do %>
       <i class="bi bi-file-plus pe-1"></i> Add a Note
     <% end %>
-                </li>
-                <% folder.notes.each do |note| %>
-                  <li>
-                    <%= link_to note.title, note_path(folder), class: "link-dark rounded" %>
-                   </li>
-                <% end %>
-              </ul>
-            </div>
+    <span class="list-group-item"> 
+      <% if @cabinet.folders.present? %>
+        <ul class="list-unstyled ps-0">
+          <% @cabinet.folders.each do |folder| %>
+            <li class="mb-1">
+              <button class="btn btn-toggle align-items-center rounded collapsed" 
+                      data-bs-toggle="collapse" 
+                      data-bs-target="<%= "#folder-#{folder.id}-collapse" %>" 
+                      aria-expanded="<%= @folder.id == folder.id %>">
+                <%= folder.title %>
+              </button>
+              <%= link_to edit_folder_path(folder), class: "btn btn-sm link-dark"  do %>
+                <i class="bi bi-pencil"></i>
+              <% end %>            
+              <div class="<%= @folder.id == folder.id ? "collapse show" : "collapse" %>" 
+                    id="<%= "folder-#{folder.id}-collapse" %>">
+                <ul class="list-unstyled fw-normal pb-1 small">
+
+                  <% folder.notes.each do |note| %>
+                    <li>
+                      <% if note.id == @note.id %>
+                          <span class="btn-toggle-nav-text"><%= note.title %></span>
+                      <% else %>
+                        <%= link_to note.title, note_path(folder), class: "link-dark rounded" %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </li>      
           <% end %>
-        </li>      
-      <% end %>
-    </ul>
-  <% end %>    
+        </ul>
+      <% end %>    
+    </span>
+  </div>
 </div>

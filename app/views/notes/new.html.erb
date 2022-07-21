@@ -1,9 +1,16 @@
-<h1>New note</h1>
-
-<%# render "form", note: @note %>
-
-<br>
-
-<div>
-
+<% provide(:title, "New Note") %>
+<div class="container py-3">
+  <div class="card mb-3 shadow-lg rounded border">
+    <div class="card-body text-dark">
+      <h3 class="card-title">New Note in <i><%= @cabinet.name %></i></h3>
+      <p class="card-text">
+        <%= render "form", note: @note, post_url: cabinet_notes_path(@cabinet)  %>
+      </p>
+      <div class="btn-group p-2">
+        <%= link_to back_to_cabinet_path(@cabinet.id), class: "btn btn-sm btn-outline-dark" do %> 
+          <i class="bi bi-box-arrow-in-right pe-1"></i>Back
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

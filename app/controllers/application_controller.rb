@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   # before_action :configure_permitted_parameters, if: :devise_controller?
   helper_method :admin_user?, :manager_user?, :allowed_user?
   # before_action :configure_permitted_parameters, if: :devise_controller?
-  
+  include ApplicationHelper
+
   def admin_user?
     user_signed_in? && current_user.admin?
   end

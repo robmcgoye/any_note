@@ -1,0 +1,10 @@
+<%= form_for folder, url: post_url do |f| %>
+  <%= render 'shared/error_messages', resource: folder %>
+  <div class="field form-group">
+    <%= f.label "Name" %><br />
+    <%= f.text_field :title, autofocus: true, placeholder: "Enter your folder name", class: "form-control" %>
+  </div>
+  <div class="actions pt-2">
+    <%= f.submit class: "btn btn-sm btn-outline-dark" %>
+  </div>
+<% end %>
