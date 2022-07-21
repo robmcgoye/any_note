@@ -31,14 +31,14 @@
               <% end %>            
               <div class="<%= @folder.id == folder.id ? "collapse show" : "collapse" %>" 
                     id="<%= "folder-#{folder.id}-collapse" %>">
-                <ul class="list-unstyled fw-normal pb-1 small">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 
                   <% folder.notes.each do |note| %>
                     <li>
                       <% if note.id == @note.id %>
                           <span class="btn-toggle-nav-text"><%= note.title %></span>
                       <% else %>
-                        <%= link_to note.title, note_path(folder), class: "link-dark rounded" %>
+                        <%= link_to note.title, note_path(note), class: "link-dark rounded" %>
                       <% end %>
                     </li>
                   <% end %>

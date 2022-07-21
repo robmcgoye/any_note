@@ -28,6 +28,14 @@ class FoldersController < ApplicationController
     end
   end
 
+  def destroy
+    @folder.destroy
+    respond_to do |format|
+      format.html { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Folder was successfully deleted." }
+      format.json { head :no_content }
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_folder

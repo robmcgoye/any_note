@@ -22,7 +22,6 @@ module ApplicationHelper
     # cookie value not working... load first part of this story
     cabinet = Cabinet.find(cabinet_id)
     cabinet.folders.each do |folder|
-      current_folder = folder
       if folder.present?
           note = folder.notes.first
         if note.present?
@@ -31,11 +30,11 @@ module ApplicationHelper
       end
     end
     # no valid note for this cabinet 
-    if defined?(current_folder) && current_folder.present?
-      new_folder_note_path(current_folder)
-    else
-      new_cabinet_folder_path(cabinet)
-    end
+    # if defined?(first_folder) && first_folder.present?
+      new_cabinet_note_path(cabinet)
+    # else
+    #   new_cabinet_folder_path(cabinet)
+    # end
   end   
 
 end

@@ -8,31 +8,19 @@ class NotesController < ApplicationController
     require_allowed_user(@account)
   end
 
-  # # GET /notes or /notes.json
-  # def index
-  #   @notes = Note.all
-  # end
-
-  # GET /notes/1 or /notes/1.json
   def show
   end
 
-  # GET /notes/new
   def new
     @note = Note.new
-    # binding.break
   end
 
-  # GET /notes/1/edit
   def edit
   end
 
-  # POST /notes or /notes.json
   def create
     # binding.break
-    @note = Note.new(note_params)
-
-   
+    @note = Note.new(note_params)   
     respond_to do |format|
       if @note.save
         format.html { redirect_to note_url(@note), notice: "Note was successfully created." }
@@ -44,7 +32,6 @@ class NotesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /notes/1 or /notes/1.json
   def update
     respond_to do |format|
       if @note.update(note_params)
@@ -57,32 +44,25 @@ class NotesController < ApplicationController
     end
   end
 
-  # DELETE /notes/1 or /notes/1.json
   def destroy
     @note.destroy
-
     respond_to do |format|
-      format.html { redirect_to notes_url, notice: "Note was successfully destroyed." }
+      format.html { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Note was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_cabinet
       @cabinet = Cabinet.find(params[:cabinet_id])
-      @account = @cabinet.account
-    end
-
-    def set_parents
-      @cabinet = @folder.cabinet
       @account = @cabinet.account
     end
 
     def set_note
       @note = Note.find(params[:id])
       @folder = @note.folder
-      set_parents
+      @cabinet = @folder.cabinet
+      @account = @cabinet.account
     end
 
     def note_params
