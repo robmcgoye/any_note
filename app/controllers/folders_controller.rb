@@ -20,10 +20,22 @@ class FoldersController < ApplicationController
     respond_to do |format|
       if @cabinet.save
         format.html { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Folder was successfully created." }
-        # format.json { render :show, status: :created, location: @cabinet }
+        # format.json { render :show, status: :created, location: @folder }
       else
         format.html { render :new, status: :unprocessable_entity }
-        # format.json { render json: @cabinet.errors, status: :unprocessable_entity }
+        # format.json { render json: @folder.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @folder.update(folder_params)
+        format.html { redirect_to back_to_cabinet_path(@cabinet.id), notice: "Folder was successfully updated." }
+        # format.json { render :show, status: :ok, location: @folder }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @folder.errors, status: :unprocessable_entity }
       end
     end
   end
