@@ -21,6 +21,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+    host: localhost
+    adapter: postgresql
+    database: anynote_db
+    pool: 5
+    username: <%= Rails.application.credentials.db_credentials[:username] %>
+    password: <%= Rails.application.credentials.db_credentials[:password] %>
+
 

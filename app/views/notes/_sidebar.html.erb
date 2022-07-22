@@ -23,7 +23,7 @@
                       data-bs-toggle="collapse" 
                       data-bs-target="<%= "#folder-#{folder.id}-collapse" %>" 
                       aria-expanded="<%= @folder.id == folder.id %>">
-                <%= folder.title %>
+                <i class="bi bi-folder-symlink pe-2"></i><%= folder.title %>
               </button>
               <%= link_to edit_folder_path(folder), class: "btn btn-sm link-dark"  do %>
                 <i class="bi bi-pencil"></i>
@@ -35,9 +35,13 @@
                   <% folder.notes.each do |note| %>
                     <li>
                       <% if note.id == @note.id %>
-                          <span class="btn-toggle-nav-text"><%= note.title %></span>
+                          <span class="btn-toggle-nav-text">
+                            <i class="bi bi-file-earmark-richtext pe-2"></i><%= note.title %>
+                          </span>
                       <% else %>
-                        <%= link_to note.title, note_path(note), class: "link-dark rounded" %>
+                        <%= link_to note_path(note), class: "link-dark rounded" do %>
+                          <i class="bi bi-file-earmark-richtext pe-2"></i><%= note.title %>
+                        <% end %>
                       <% end %>
                     </li>
                   <% end %>
