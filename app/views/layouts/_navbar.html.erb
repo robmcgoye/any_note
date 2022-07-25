@@ -35,7 +35,7 @@
                 <% current_account.cabinets.each do |cabinet| %>
                   <li>
                     <% cabinet_link = back_to_cabinet_path(cabinet.id) %>
-                      <%= link_to cabinet.name, back_to_cabinet_path(cabinet.id), class: "dropdown-item", 
+                      <%= link_to cabinet.name, back_to_cabinet_path(cabinet.id), class: "dropdown-item#{" active" if @cabinet.present? && cabinet == @cabinet}", 
                       :data => {:turbo => "#{back_to_cabinet_path(cabinet.id) != new_cabinet_note_path(cabinet)}"} %>
                   </li>
                 <% end %>

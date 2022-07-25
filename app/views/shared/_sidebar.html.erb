@@ -1,0 +1,80 @@
+<div class="flex-shrink-0 p-3 bg-light">
+  <div class="list-group">
+    <div class ="list-group-item d-flex justify-content-center">
+      <div class="btn-group dropend">
+        <%= button_to edit_cabinet_path(this_cabinet), class: "btn btn-outline-dark", method: :get do %>
+          <i class="bi bi-journal-richtext pe-2"></i><%= this_cabinet.name %>
+        <% end %>
+        <button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+         
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <%= link_to new_account_cabinet_path(current_account), class: "dropdown-item" do %>
+              <i class="bi bi-journal-plus pe-1"></i>New Cabinet
+            <% end %>
+          </li>
+          <% if current_account.cabinets.present? %>
+            <li><hr class="dropdown-divider"></li>
+            <% current_account.cabinets.each do |cabinet| %>
+              <li>
+                <%= link_to cabinet.name, back_to_cabinet_path(cabinet.id), class: "dropdown-item#{" active" if cabinet == this_cabinet}", 
+                  :data => {:turbo => "#{back_to_cabinet_path(cabinet.id) != new_cabinet_note_path(cabinet)}"} %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <%= link_to new_cabinet_folder_path(this_cabinet), 
+        class: "list-group-item list-group-item-action grp-item#{ " list-group-item-secondary" if folder_id == 0 }" do %>
+      <i class="bi bi-folder-plus pe-1"></i> Add a Folder
+    <% end %>
+    <%= link_to new_cabinet_note_path(this_cabinet), 
+        class: "list-group-item list-group-item-action grp-item", :data => {:turbo => "false"} do %>
+      <i class="bi bi-file-plus pe-1"></i> Add a Note
+    <% end %>
+    <span class="list-group-item"> 
+      <% if this_cabinet.folders.present? %>
+        <ul class="list-unstyled ps-0">
+          <% this_cabinet.folders.each do |folder| %>
+            <li class="mb-1">
+              <button class="btn btn-toggle rounded collapsed" 
+                      data-bs-toggle="collapse" 
+                      data-bs-target="<%= "#folder-#{folder.id}-collapse" %>" 
+                      aria-expanded="<%= folder_id == folder.id %>">
+                <i class="bi bi-folder-symlink pe-2"></i>
+                <span class="<%= !folder.id.present? || folder_id == folder.id ? "text-primary" : "text-dark" %>">
+                  <%= "#{ folder.id.present? ? folder.title : "New Folder" }" %>
+                </span>
+              </button>
+              <% if folder.id.present? %>
+                <%= link_to edit_folder_path(folder), class: "btn btn-sm link-dark"  do %>
+                  <i class="bi bi-pencil"></i>
+                <% end %>        
+              <% end %>
+              <div class="<%= folder_id == folder.id ? "collapse show" : "collapse" %>" 
+                    id="<%= "folder-#{folder.id}-collapse" %>">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                  <% folder.notes.each do |note| %>
+                    <li>
+                      <% if note.id == note_id %>
+                          <span class="btn-toggle-nav-text">
+                            <i class="bi bi-file-earmark-richtext pe-2"></i><%= note.title %>
+                          </span>
+                      <% else %>
+                        <%= link_to note_path(note), class: "link-dark rounded" do %>
+                          <i class="bi bi-file-earmark-richtext pe-2"></i><%= note.title %>
+                        <% end %>
+                      <% end %>
+                    </li>
+                  <% end %>
+                </ul>
+              </div>
+            </li>      
+          <% end %>
+        </ul>
+      <% end %>    
+    </span>
+  </div>
+</div>
