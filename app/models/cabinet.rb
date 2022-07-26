@@ -7,4 +7,6 @@ class Cabinet < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 45 }
 
+  default_scope { order(name: :asc) } 
+
 end

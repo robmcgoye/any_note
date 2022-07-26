@@ -6,6 +6,8 @@ class Account < ApplicationRecord
 
   has_many :cabinets, dependent: :destroy
 
+  default_scope { order(name: :asc) } 
+
   def registered_owner
     users.where(owner: true).take
   end

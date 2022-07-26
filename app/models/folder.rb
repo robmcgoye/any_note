@@ -8,5 +8,6 @@ class Folder < ApplicationRecord
 
   validates :title, presence: true, length: { minimum: 1, maximum: 25 }  
 
+  default_scope { order(title: :asc) } 
   
 end
