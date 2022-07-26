@@ -3,14 +3,14 @@
     <div class="card-body text-dark">
       <h3 class="card-title"> Sign Up </h3>
       <p class="card-text">
-        <%= form_for @account, url: accounts_path do |f| %>
+        <%= form_with model: @account, url: accounts_path do |f| %>
           <%= render 'shared/error_messages', resource: @account %>
           <div class="field form-group">
             <%= f.label "Account Name" %><br />
             <%= f.text_field :name, autofocus: true, placeholder: "Account name", class: "form-control" %>
           </div>
           <%= f.fields_for :users do |u| %>
-
+            <%= u.hidden_field :owner, value: "1" %>
             <div class="form-check form-switch pt-2">
               <%= u.check_box :owner, class: "form-check-input", id: "flexSwitchCheckowner", :disabled => true %>
               <%= u.label :owner,  class: "form-check-label", for: "flexSwitchCheckowner" %>        

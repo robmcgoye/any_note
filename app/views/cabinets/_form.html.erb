@@ -1,4 +1,4 @@
-<%= form_for cabinet, url: post_url, :data => {:turbo => "false"} do |f| %>
+<%= form_with model: cabinet, url: post_url, :data => {:turbo => "false"} do |f| %>
   <%= render 'shared/error_messages', resource: cabinet %>
   <div class="field form-group">
     <%= f.label "Name" %><br />

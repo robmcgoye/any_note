@@ -24,8 +24,7 @@ class UsersController < ApplicationController
 
   def create 
     @user = @account.users.build(user_params)
-    if @user.valid?
-      @user.save
+    if @user.save
       flash[:notice] = "User was successfully created. The new user must confirm their account to gain access"
       redirect_to account_users_path(@account)
     else
@@ -69,7 +68,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :manager, :owner, :enabled)
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :manager, :enabled)
   end
 
 end

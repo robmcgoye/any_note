@@ -1,4 +1,4 @@
- <%= form_for user, url: path_for_user, :data => {:turbo => "false"} do |f| %>
+ <%= form_with model: user, url: path_for_user, :data => {:turbo => "false"} do |f| %>
   <%= render 'shared/error_messages', resource: @user %>
   <% if !user.owner? %>
     <div class="row ps-3">

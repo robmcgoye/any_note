@@ -14,6 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def create
+    binding.break
     @account = Account.new(account_params)
     if @account.save
       flash[:notice] = "Created account please confirm your account."
