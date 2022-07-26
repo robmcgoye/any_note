@@ -29,7 +29,11 @@ module ApplicationHelper
       end
     end
     # no valid note for this cabinet 
-    new_cabinet_note_path(cabinet)
+    if cabinet.folders.present?
+      new_cabinet_note_path(cabinet)
+    else
+      new_cabinet_folder_path(cabinet)
+    end
   end   
 
 end

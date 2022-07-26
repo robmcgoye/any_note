@@ -5,6 +5,6 @@ class Cabinet < ApplicationRecord
   
   accepts_nested_attributes_for :folders
 
-  validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 125 }
+  validates :name, presence: true, uniqueness: true, length: { minimum: 1, maximum: 45 }
 
 end

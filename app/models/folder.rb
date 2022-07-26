@@ -6,7 +6,7 @@ class Folder < ApplicationRecord
   has_many :subfolders, class_name: "Folder", foreign_key: "subfolder_id", dependent: :destroy
   belongs_to :subfolder, class_name: "Folder", optional: true
 
-  validates :title, presence: true, length: { minimum: 1, maximum: 125 }  
+  validates :title, presence: true, length: { minimum: 1, maximum: 25 }  
 
   
 end
