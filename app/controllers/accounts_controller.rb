@@ -14,7 +14,7 @@ class AccountsController < ApplicationController
   end
 
   def create
-    @account = Account.new(account_params)
+    @account = Account.new(new_account_params)
     if @account.save
       flash[:notice] = "Created account please confirm your account."
       redirect_to new_user_session_path
@@ -27,8 +27,15 @@ class AccountsController < ApplicationController
   end
 
   def update
-    flash[:notice] = "Need to write code to update account!"
-    redirect_to account_path(@account)
+    respond_to do |format|
+      if @account.update(update_account_params)
+        format.html { redirect_to account_path(@account), notice: "Account was successfully updated." }
+        # format.json { render :show, status: :ok, location: @note }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @account.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def show
@@ -36,19 +43,27 @@ class AccountsController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = "Need to write code to delete EVERYTHING here!"
-    redirect_to root_path
+    @account.destroy
+    respond_to do |format|
+      format.html { redirect_to destroy_user_session_path, notice: "Account was successfully closed. All data/users has been removed" }
+      format.json { head :no_content }
+    end
   end
 
   private
 
     def set_account
-      @account = Account.find(params[:id])
+      @account = Account.find_by id: params[:id]
     end
 
-    def account_params
+    def new_account_params
       params.require(:account).permit(:name, 
         users_attributes: [:id, :first_name, :last_name, :email, :owner, :password, :password_confirmation, :_destroy])
     end
+
+    def update_account_params
+      params.require(:account).permit(:name)
+    end
+
 
 end

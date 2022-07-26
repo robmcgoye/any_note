@@ -56,11 +56,11 @@ class CabinetsController < ApplicationController
   private
 
     def set_account
-      @account = Account.find(params[:account_id])
+      @account = Account.find_by id: params[:account_id]
     end
 
     def set_cabinet
-      @cabinet = Cabinet.find(params[:id])
+      @cabinet = Cabinet.find_by id: params[:id]
       @account = @cabinet.account
     end
 

@@ -39,7 +39,7 @@ class PagesController < ApplicationController
     end
 
     def get_page
-      @page = Page.find(params[:id])
+      @page = Page.find_by id: params[:id]
     end
 
     # Only allow a list of trusted parameters through.

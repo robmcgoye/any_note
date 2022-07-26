@@ -54,12 +54,12 @@ class NotesController < ApplicationController
 
   private
     def set_cabinet
-      @cabinet = Cabinet.find(params[:cabinet_id])
+      @cabinet = Cabinet.find_by id: params[:cabinet_id]
       @account = @cabinet.account
     end
 
     def set_note
-      @note = Note.find(params[:id])
+      @note = Note.find_by id: params[:id]
       @folder = @note.folder
       @cabinet = @folder.cabinet
       @account = @cabinet.account

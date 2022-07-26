@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def set_parents
     if @user.present?
-      @account = Account.find(@user.account_id)
+      @account = Account.find_by id: @user.account_id
       # cookie_name = "story_#{@story.id}"
       # cookies[cookie_name] = @part.id
     else
@@ -59,12 +59,12 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by id: params[:id]
     set_parents
   end
 
   def set_account
-    @account = Account.find(params[:account_id])
+    @account = Account.find_by id: params[:account_id]
   end
 
   def user_params

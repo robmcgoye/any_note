@@ -51,7 +51,7 @@ class FoldersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_folder
-    @folder = Folder.find(params[:id])
+    @folder = Folder.find_by id: params[:id]
     @cabinet = @folder.cabinet
     set_parent
   end
@@ -61,7 +61,7 @@ class FoldersController < ApplicationController
   end
 
   def set_cabinet
-    @cabinet = Cabinet.find(params[:cabinet_id])
+    @cabinet = Cabinet.find_by id: params[:cabinet_id]
     set_parent
   end
 

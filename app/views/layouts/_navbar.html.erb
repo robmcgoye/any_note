@@ -3,12 +3,13 @@
     <%= link_to 'Any Note', root_path, class: "navbar-brand" %>
     <% if user_signed_in? %>
       <span class="navbar-text mb-0">
+        <%= current_user.email %> -> 
         <% if !allowed_user? %>
           <em class="navbar-text pe-1"> User Disabled ***</em>
         <% else %>
-          <em class="navbar-text pe-1"><%= current_account.name %>-></em>
+          <em class="navbar-text pe-1"><%= current_account.name %></em>
         <% end %>
-        <%= current_user.email %>
+        
       </span>
     <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
