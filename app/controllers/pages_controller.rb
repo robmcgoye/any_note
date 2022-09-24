@@ -15,6 +15,10 @@ class PagesController < ApplicationController
   def about
     @page = load_page(:about)
   end
+
+  def terms
+    @page = load_page(:terms)
+  end
   
   def edit
   end

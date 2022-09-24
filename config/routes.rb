@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   }
   
   root 'pages#index'
-  pages = %w(about)
+  pages = %w(about terms)
   pages.each do |page|
     get "#{page}", to: "pages##{page}"
   end  
